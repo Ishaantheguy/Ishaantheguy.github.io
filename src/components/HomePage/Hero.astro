@@ -1,0 +1,36 @@
+---
+import "@fortawesome/fontawesome-free/css/all.min.css"; 
+import '../../styles/global.css';
+import cv from '../../assets/CV_Ishaan_Sheth.pdf';
+import img from '../../assets/avatar.png';
+import { SITE_TITLE,SITE_DESCRIPTION,SITE_AUTHOR_NAME,SITE_AUTHOR_BIO,SITE_AUTHOR_URL} from '../../consts'; 
+---
+
+<!doctype html>
+<section id="hero" class="hero-section">
+        <div class="container hero-content">
+            <div class="hero-text">
+                <p class="terminal-prompt">&gt; whoami</p>
+                <h1 class="hero-title">{SITE_AUTHOR_NAME}</h1>
+                <h2 class="hero-subtitle">Systems Hacker & Aspiring Kernel Researcher</h2>
+                <p class="hero-desc" set:html={SITE_AUTHOR_BIO.replace(/\n/g,'<br>')} />
+                <div class="hero-buttons">
+                    <a href={cv} download="CV.pdf" class="btn btn-primary">
+                        <i class="fas fa-file-download"></i> Download CV
+                    </a>
+                    <a href=`${SITE_AUTHOR_URL}` target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://www.linkedin.com/in/ishaan-sheth-98881a2a1/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                </div>
+            </div>
+            
+            <div class="hero-image-container">
+                <div class="profile-glow"></div>
+                <img src={img.src} alt="Ishaan Sheth" class="profile-pic">
+            </div>
+        </div>
+    </section>
+
