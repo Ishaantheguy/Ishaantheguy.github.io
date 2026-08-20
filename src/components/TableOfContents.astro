@@ -1,0 +1,180 @@
+---
+const { headings } = Astro.props;
+---
+
+<nav class="toc none" >
+    <h3>Table of Contents</h3>
+
+    <ul>
+        {headings.filter((heading)=>heading.depth<=4).map((heading) => (
+            <li class={`depth-${heading.depth}`}>
+                <a href={`#${heading.slug}`}>
+                    {heading.text}
+                </a>
+            </li>
+        ))}
+    </ul>
+</nav>
+
+<style>
+    @media (max-width: 1550px) {
+    .toc {
+        display: none;
+    }
+}
+
+.depth-2 {
+    margin-top: 0.75rem;
+}
+
+.depth-2 > a {
+    font-size: 1rem;
+    font-weight: 650;
+    color: #e6edf3;
+
+    display: block;
+    padding: .35rem 0;
+}
+
+.depth-3 {
+    margin-top: 0.2rem;
+    margin-left: 1rem;
+    font-size: .95rem;
+    opacity: .9;
+    border-left: 3px solid rgba(255,255,255,.9);
+    padding-left: .8rem;
+}
+
+.depth-3 > a {
+    font-size: .92rem;
+    color: #9ca3af;
+
+    display: block;
+
+    margin-left: 1rem;
+    padding: .18rem 0;
+}
+
+.depth-4 {
+    margin-top: 0.2rem;
+    margin-left: 1.5rem;
+    font-size: .85rem;
+    opacity: .85;
+    border-left: 1px solid rgba(255,255,255,.08);
+    padding-left: .8rem;
+}
+
+.depth-4 > a {
+    font-size: .90rem;
+    color: #9ca3af;
+
+    display: block;
+
+    margin-left: 2rem;
+    padding: .18rem 0;
+}
+
+.toc {
+    position: sticky;
+    top: 4rem;
+    align-self: flex-start;
+    width: 40rem;
+    opacity: 1;
+    /* overflow: hidden; */
+
+    transition:
+        width .35s ease 0.15s,
+        opacity .35s ease,
+        transform .35s ease,
+        padding .35s ease;
+
+    max-height: calc(100vh - 120px);
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+
+    padding: 1.25rem;
+
+    border-left: 2px solid rgba(255,255,255,.06);
+
+    background: rgba(255,255,255,.015);
+
+    border-radius: 12px;
+}
+
+.toc h3 {
+
+    font-size: 1.45rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.toc.fading {
+    opacity: 0;
+    transform: translateX(15px);
+    pointer-events: none;
+}
+
+.toc.none {
+    width: 0;
+    padding: 0;
+    border-left: none;
+}
+
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+
+
+.toc a {
+    color: #b8c0cc;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.toc a.active {
+    color: white;
+    font-weight: 600;
+}
+
+.toc a:hover {
+    color: white;
+}
+
+
+</style>
+
+<script>
+    const observer = new IntersectionObserver(
+    entries => {
+        entries.forEach(entry => {
+            const link = document.querySelector(
+                `.toc a[href="#${entry.target.id}"]`
+            );
+
+            if (entry.isIntersecting) {
+                document
+                    .querySelectorAll(".toc a")
+                    .forEach(a => a.classList.remove("active"));
+
+                link?.classList.add("active");
+            }
+        });
+    },
+    {
+        rootMargin: "0px 0px -70% 0px"
+    }
+);
+
+document
+    .querySelectorAll("article h2, article h3, article h4")
+    .forEach(h => observer.observe(h));
+
+
+</script>

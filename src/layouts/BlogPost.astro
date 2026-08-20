@@ -1,0 +1,153 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import Header from '../components/Header.astro';
+import BlogBackground from '../components/BlogBackground.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+type Props = CollectionEntry<'blog'>['data'];
+
+const { title, description, pubDate, updatedDate, heroImage, headings} = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			html,
+			body,
+			.actual-blog-content,
+			main {
+				overflow: visible ;
+			}
+			.actual-blog-content {
+				display: flex;
+				flex-direction: row;
+			}
+			main {
+				width: calc(100% - 1rem);
+				max-width: 100%;
+				margin: 0;
+			}
+			.hero-image {
+				min-width: none;
+				width: 100%;
+			}
+			.hero-image img {
+				display: block;
+				margin: 0 auto;
+				border-radius: 12px;
+				box-shadow: var(--box-shadow);
+			}
+			.prose {
+				width: 1000px;
+				max-width: calc(100% - 2em);
+				margin: auto;
+				padding: 1em;
+				color: rgb(var(--gray-medium-light));
+			}
+
+			.prose a{
+				color: aqua;
+				background-color: aqua;
+			}
+			.prose p {
+				margin-bottom: 0.5rem;
+			}
+			.title {
+				margin-bottom: 1em;
+				padding: 1em 0;
+				text-align: center;
+				line-height: 1;
+			}
+			.title h1 {
+				margin: 0 0 0.5em 0;
+			}
+			.date {
+				margin-bottom: 0.5em;
+				color: rgb(var(--gray));
+			}
+			.last-updated-on {
+				font-style: italic;
+			}
+		</style>
+	</head>
+
+	<body>
+		<BlogBackground></BlogBackground>
+		<Header />
+		<div class="actual-blog-content">
+			<main>
+				<article>
+					<div class="hero-image">
+						{heroImage && <Image width={1020} height={510} src={heroImage} alt="" />}
+					</div>
+					<div class="prose">
+						<div class="title">
+							<div class="date">
+								<FormattedDate date={pubDate} />
+								{
+									updatedDate && (
+										<div class="last-updated-on">
+											Last updated on <FormattedDate date={updatedDate} />
+										</div>
+									)
+								}
+							</div>
+							<h1>{title}</h1>
+							<hr />
+						</div>
+						<slot />
+					</div>
+				</article>
+			</main>
+			<TableOfContents headings={headings}/>
+			</div>
+		<Footer />
+	</body>
+</html>
+
+<script>
+	const hero = document.querySelector(".hero-image");
+    const toc = document.querySelector(".toc");
+
+	const hasImage = hero?.querySelector("img") !== null;
+
+	console.log("Hero:",hero);
+	console.log("toc:",toc);
+
+    if (!hero || !toc){
+		console.log("Somthing aint right");
+	}
+
+	if(!hasImage){
+		toc.classList.remove("none");
+	}
+	else{
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            if (entry.isIntersecting) {
+                toc.classList.add("fading");
+				setTimeout(() => {
+					toc.classList.add("none");
+				}, 250);
+            } else {
+                toc.classList.remove("none");
+				requestAnimationFrame(() => {
+					setTimeout(() => {
+						toc.classList.remove("fading");
+				}, 250);
+				});
+            }
+        },
+        {
+            threshold: 0
+        }
+    );
+
+    observer.observe(hero);
+	console.log("Hopefully it reaches here!");
+	}
+</script>

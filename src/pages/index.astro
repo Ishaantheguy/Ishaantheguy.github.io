@@ -1,0 +1,34 @@
+---
+import '../styles/global.css';
+import BaseHead from '../components/BaseHead.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/HomePage/Hero.astro';
+import About from '../components/HomePage/About.astro';
+import Experience from '../components/HomePage/Experience.astro';
+import Timeline from '../components/HomePage/Timeline.astro';
+import Projects from '../components/HomePage/Projects.astro';
+import Publications from '../components/HomePage/Publications.astro';
+import StarryBackground from '../components/StarryBackground.astro';
+import { SITE_TITLE,SITE_DESCRIPTION,SITE_AUTHOR_NAME,SITE_AUTHOR_BIO,SITE_AUTHOR_URL} from '../consts'; 
+// import About from './about.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="container-of-containers">
+		<StarryBackground></StarryBackground>
+		<Header />
+		<Hero></Hero>
+		<About></About>
+		<Experience></Experience>
+		<Timeline></Timeline>
+		<Projects></Projects>
+		<Publications></Publications>
+		<Footer />
+	</body>
+</html>
+

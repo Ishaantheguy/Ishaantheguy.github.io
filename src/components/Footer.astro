@@ -1,0 +1,45 @@
+---
+import {Icon} from "astro-icon/components";
+const today = new Date();
+---
+
+<footer>
+	&copy; {today.getFullYear()} Ishaantheguy. All rights reserved.
+	<div class="social-links">
+		<a href="mailto:ishaanksheth2@gmail.com" target="_blank">
+			<Icon name="simple-icons:gmail" size={32}/>
+		</a>
+		<a href="https://linkedin.com/in/ishaan-sheth-98881a2a1" target="_blank">
+			<Icon name="simple-icons:linkedin" size={32}/>
+		</a>
+		<a href="https://github.com/Ishaantheguy" target="_blank">
+			<Icon name="simple-icons:github" size={32}/>
+		</a>
+	</div>
+</footer>
+<style>
+	footer {
+		padding: 1em 1em 2em 1em;
+		background: linear-gradient(
+        180deg,
+        #0a0f1f 0%,
+        #12151d 50%,
+        #1b1d24 100%
+    );
+		color: rgb(var(--gray));
+		text-align: center;
+	}
+	.social-links {
+		display: flex;
+		justify-content: center;
+		gap: 1em;
+		margin-top: 1em;
+	}
+	.social-links a {
+		text-decoration: none;
+		color: rgb(var(--gray-light));
+	}
+	.social-links a:hover {
+		color: rgb(var(--gray));
+	}
+</style>

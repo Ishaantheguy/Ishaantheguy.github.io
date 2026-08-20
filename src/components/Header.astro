@@ -1,0 +1,155 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+
+<header>
+	<nav class="navbar">
+		<h2><a href="/">{SITE_TITLE}</a></h2>
+		<button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+			<i class="fas fa-bars"></i>
+		</button>
+		<div class="internal-links">
+			<HeaderLink href="/#about">About</HeaderLink>
+			<HeaderLink href="/#expertise">Expertise</HeaderLink>
+			<HeaderLink href="/#timeline">Timeline</HeaderLink>
+			<HeaderLink href="/#publications">Publications</HeaderLink>
+			<HeaderLink href="/blog">Blogs</HeaderLink>
+		</div>
+	</nav>
+</header>
+<style>
+
+	@media (max-width: 900px) {
+
+    .menu-toggle {
+        display: block !important;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+    }	
+
+    nav {
+		margin: 5% 0;
+		align-items: center;
+		position: relative;
+	}
+	.internal-links {
+		position: absolute;
+		top: calc(100% + 10px);
+		right: 0;
+
+		width: 220px;
+
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+
+		background: rgba(15, 15, 25, 0.97);
+		backdrop-filter: blur(15px);
+
+		border: 1px solid rgba(255,255,255,.08);
+		border-radius: 12px;
+
+		overflow: hidden;
+
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-10px);
+		pointer-events: none;
+		z-index: 1000;
+		transition:
+			opacity .25s ease,
+			transform .25s ease,
+			visibility .25s;
+	}
+
+	.internal-links a {
+		padding: 1rem 1.2rem;
+		border: none;
+	}
+
+	.internal-links a:hover {
+		background: rgba(168,85,247,.12);
+	}
+
+	.internal-links.open {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+		pointer-events: auto;
+	}
+}
+	
+	.menu-toggle {
+		display:none;
+	}
+
+	header {
+		margin: 0;
+		padding: 0 1em;
+		background: rgba(5, 5, 8, 0.85);
+		box-shadow: 0 2px 8px rgba(var(--black), 5%);
+	}
+	h2 {
+		margin: 0;
+		font-size: 1em;
+	}
+
+	h2 a,
+	h2 a.active {
+		color: white	;
+		text-decoration: none;
+	}
+	nav {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+	.internal-links  a {
+		padding: 1em 0.5em;
+		color: var(--navlinkcolor);
+		border-bottom: 4px solid transparent;
+		text-decoration: none;
+	}
+	.internal-links :hover {
+		color: var(--neon-purple);
+	}
+	nav a.active {
+		text-decoration: none;
+		border-bottom-color: var(--accent);
+	}
+	.social-links,
+	.social-links a {
+		display: flex;
+	}
+	
+</style>
+<script>
+const button = document.querySelector(".menu-toggle");
+const menu = document.querySelector(".internal-links");
+
+console.log("Header script loaded");
+console.log("Button:",button,"menu:",menu)
+
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("DOM loaded");
+
+    const button = document.querySelector(".menu-toggle");
+    const menu = document.querySelector(".internal-links");
+
+    console.log(button);
+    console.log(menu);
+
+    button?.addEventListener("click", () => {
+        console.log("clicked");
+        menu?.classList.toggle("open");
+		console.log(menu?.className);
+    });
+});
+
+
+</script>
