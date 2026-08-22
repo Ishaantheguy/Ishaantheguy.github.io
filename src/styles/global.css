@@ -395,14 +395,15 @@ section { padding: 30px 0; }
 .card-description {
 	color: #C5CAD3;
 	display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines */
+    -webkit-line-clamp: 4; /* Number of lines */
     -webkit-box-orient: vertical;
-	min-height: 130px;
+    height: 165px;
+    margin-bottom: 1rem;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-.card-footer {
+/* .card-footer {
 	display: flex;
 	flex-direction: row;
 	font-size: medium;
@@ -410,7 +411,7 @@ section { padding: 30px 0; }
 	margin-top: auto;
 	bottom: 10%;
 	border-top: 1px solid rgb(var(--gray-light));
-}
+} */
 
 .card-date {
 	display: flex;
