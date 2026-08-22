@@ -1,6 +1,6 @@
 ---
 title: Pwnable.kr 
-description: 'This is a collection of writeups of some of the pwnable.kr challenges that I have solved. I will add more writeups of challenges which I will solve and find interesting.'
+description: 'This is a collection of writeups of some of the pwnable.kr challenges that I have solved. I will add writeups more interesting ones later.'
 pubDate: 'Feb 20 2026'
 heroImage: '../../assets/Blog_images/Pwnable.kr/pwnablekr.png'
 tags:
